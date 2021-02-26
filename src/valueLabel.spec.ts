@@ -1,5 +1,5 @@
 import { testCases } from './testCases'
-import { valueLabel } from './valueLabel'
+import { valueLabel, fnCallLabel } from './valueLabel'
 
 describe('valueLabel(value: any)', () => {
   testCases(
@@ -11,10 +11,10 @@ describe('valueLabel(value: any)', () => {
       [null, 'null'],
       ['', "''"],
       [['array', 'of', 'items'], "['array', 'of', 'items']"],
-      [{ key1: 'value1', key2: true }, "{key1: 'value1', key2: true}"],
+      [{ key1: 'value1', key2: true }, "{ key1: 'value1', key2: true }"],
       [
         [{ key1: 'value1', key2: true }, 'complex'],
-        "[{key1: 'value1', key2: true}, 'complex']",
+        "[{ key1: 'value1', key2: true }, 'complex']",
       ],
       [new Set(), 'Set'],
       [new WeakSet(), 'WeakSet'],
@@ -26,5 +26,20 @@ describe('valueLabel(value: any)', () => {
       [new (function SomeConstructor() {})(), 'SomeConstructor'],
     ],
     valueLabel
+  )
+})
+
+describe('fnCallLabel(name, args, result)', () => {
+  testCases(
+    [
+      ['sum', [5, 6], 11, 'sum(5, 6) -> 11'],
+      [
+        'someFn',
+        ['str', 5, { opt: true }],
+        'RESULT',
+        "someFn('str', 5, { opt: true }) -> 'RESULT'",
+      ],
+    ],
+    fnCallLabel
   )
 })

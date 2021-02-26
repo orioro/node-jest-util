@@ -1,4 +1,4 @@
-import { valueLabel } from './valueLabel'
+import { fnCallLabel } from './valueLabel'
 
 export type TestCase = any[]
 export type TestCases = TestCase[]
@@ -21,15 +21,10 @@ export const testCases = (
   const _label =
     typeof label === 'function'
       ? label
-      : typeof label === 'string'
-      ? (args, result) =>
-          `${label}(${args.map(valueLabel).join(', ')}) -> ${valueLabel(
-            result
-          )}`
-      : (args, result) =>
-          `${fn.name}(${args.map(valueLabel).join(', ')}) -> ${valueLabel(
-            result
-          )}`
+      : fnCallLabel.bind(
+          null,
+          typeof label === 'string' ? label : fn.name || '???'
+        )
 
   cases.forEach((case_) => {
     const result = case_[case_.length - 1]

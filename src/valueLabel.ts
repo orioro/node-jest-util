@@ -15,13 +15,13 @@ export const valueLabel = (
   if (typeof value === 'string') {
     return `'${value}'`
   } else if (isPlainObject(value)) {
-    return `{${Object.keys(value).reduce(
+    return `{ ${Object.keys(value).reduce(
       (acc, key) =>
         acc !== ''
           ? `${acc}, ${key}: ${valueLabel(value[key])}`
           : `${key}: ${valueLabel(value[key])}`,
       ''
-    )}}`
+    )} }`
   } else if (Array.isArray(value)) {
     return `[${value.map(valueLabel).join(', ')}]`
   } else if (typeof value === 'object' && value !== null) {
@@ -36,3 +36,6 @@ export const valueLabel = (
     return String(value)
   }
 }
+
+export const fnCallLabel = (fnName: string, args: any[], result: any) =>
+  `${fnName}(${args.map(valueLabel).join(', ')}) -> ${valueLabel(result)}`
