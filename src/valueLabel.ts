@@ -37,5 +37,6 @@ export const valueLabel = (
   }
 }
 
-export const fnCallLabel = (fnName: string, args: any[], result: any) =>
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const fnCallLabel = (fnName: string, args: any[], result: any): string =>
   `${fnName}(${args.map(valueLabel).join(', ')}) -> ${valueLabel(result)}`
