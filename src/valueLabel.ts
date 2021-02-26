@@ -1,5 +1,26 @@
 import { isPlainObject } from 'is-plain-object'
 
+class VariableName {
+  name: string
+  constructor(name) {
+    this.name = name
+  }
+
+  toString(): string {
+    return this.name
+  }
+}
+
+/**
+ * Wraps a name in a VariableName instance so that `valueLabel` serializer
+ * knows not to wrap it in quotes.
+ *
+ * @function variableName
+ * @param {String} name
+ */
+export const variableName = (name: string): VariableName =>
+  new VariableName(name)
+
 /**
  * Takes any value as input and returns an adequate label to represent
  * that value.
@@ -12,6 +33,9 @@ export const valueLabel = (
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   value: any
 ): string => {
+  if (value instanceof VariableName) {
+    return value.name
+  }
   if (typeof value === 'string') {
     return `'${value}'`
   } else if (isPlainObject(value)) {

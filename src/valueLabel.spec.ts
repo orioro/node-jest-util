@@ -1,5 +1,5 @@
 import { testCases } from './testCases'
-import { valueLabel, fnCallLabel } from './valueLabel'
+import { valueLabel, fnCallLabel, variableName } from './valueLabel'
 
 describe('valueLabel(value: any)', () => {
   testCases(
@@ -27,6 +27,16 @@ describe('valueLabel(value: any)', () => {
     ],
     valueLabel
   )
+
+  describe('variableName(name)', () => {
+    testCases(
+      [
+        ['someVariable', "'someVariable'"],
+        [variableName('someVariable'), 'someVariable'],
+      ],
+      valueLabel
+    )
+  })
 })
 
 describe('fnCallLabel(name, args, result)', () => {

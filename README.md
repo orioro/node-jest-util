@@ -10,6 +10,7 @@ Set of utility methods for generating tests using `jest`.
 # API Docs
 
 - [`testCases(cases, fn, label)`](#testcasescases-fn-label)
+- [`variableName(name)`](#variablenamename)
 - [`valueLabel(value)`](#valuelabelvalue)
 
 ##### `testCases(cases, fn, label)`
@@ -21,6 +22,13 @@ each case using provided function and label generators
 - `fn` {Function}
 - `label` {Function | String}
 - Returns: {void} 
+
+##### `variableName(name)`
+
+Wraps a name in a VariableName instance so that `valueLabel` serializer
+knows not to wrap it in quotes.
+
+- `name` {String}
 
 ##### `valueLabel(value)`
 
