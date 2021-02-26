@@ -1,7 +1,14 @@
 {
   "name": "@orioro/jest-util",
   "version": "0.0.0-semantic-release",
-  "description": "",
+  "description": "Set of utility methods for generating tests using jest",
+  "keywords": ["jest", "test", "generate", "util"],
+  "homepage": "https://github.com/orioro/node-jest-util",
+  "bugs": "https://github.com/orioro/node-jest-util/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orioro/node-jest-util.git"
+  },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "scripts": {
@@ -25,6 +32,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist/**/*"
+  ],
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/preset-env": "^7.12.16",
