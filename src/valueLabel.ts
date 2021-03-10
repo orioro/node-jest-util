@@ -1,5 +1,7 @@
 import { isPlainObject } from 'is-plain-object'
 
+import { ExpectedResultFn } from './types'
+
 class VariableName {
   name: string
   constructor(name) {
@@ -61,6 +63,24 @@ export const valueLabel = (
   }
 }
 
+/**
+ * @function resultLabel
+ * @param {*} result
+ * @returns {String}
+ */
+export const resultLabel = (result: ExpectedResultFn | any): string => {
+  return typeof result === 'function' && result.label
+    ? result.label
+    : valueLabel(result)
+}
+
+/**
+ * @function fnCallLabel
+ * @param {String} fnName
+ * @param {*[]} args
+ * @param {*} result
+ * @returns {String}
+ */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const fnCallLabel = (fnName: string, args: any[], result: any): string =>
-  `${fnName}(${args.map(valueLabel).join(', ')}) -> ${valueLabel(result)}`
+  `${fnName}(${args.map(valueLabel).join(', ')}) -> ${resultLabel(result)}`

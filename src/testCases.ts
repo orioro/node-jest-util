@@ -1,7 +1,6 @@
-import { fnCallLabel } from './valueLabel'
+import { fnCallLabel, valueLabel } from './valueLabel'
 
-export type TestCase = any[]
-export type TestCases = TestCase[]
+import { TestCases, AsyncExpectedResultFn } from './types'
 
 const _isErrorExpectation = (value: any): boolean =>
   value === Error ||
@@ -59,7 +58,13 @@ export const testCases = (
  * @returns {Function}
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const asyncResult = (expectedResult: any) => (actualResult: any) =>
-  _isErrorExpectation(expectedResult)
-    ? expect(actualResult).rejects.toThrow(expectedResult) // eslint-disable-line jest/valid-expect
-    : expect(actualResult).resolves.toEqual(expectedResult) // eslint-disable-line jest/valid-expect
+export const asyncResult = (expectedResult: any): AsyncExpectedResultFn => {
+  const resultExpectFn: AsyncExpectedResultFn = (actualResult: any) =>
+    _isErrorExpectation(expectedResult)
+      ? expect(actualResult).rejects.toThrow(expectedResult) // eslint-disable-line jest/valid-expect
+      : expect(actualResult).resolves.toEqual(expectedResult) // eslint-disable-line jest/valid-expect
+
+  resultExpectFn.label = `async(${valueLabel(expectedResult)})`
+
+  return resultExpectFn
+}
