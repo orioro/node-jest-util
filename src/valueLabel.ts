@@ -2,9 +2,9 @@ import { isPlainObject } from 'is-plain-object'
 
 import { ExpectedResultFn } from './types'
 
-class VariableName {
+export class VariableName {
   name: string
-  constructor(name) {
+  constructor(name: string) {
     this.name = name
   }
 
