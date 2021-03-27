@@ -2,7 +2,13 @@ import { fnCallLabel, valueLabel } from './valueLabel'
 
 import { TestCases, AsyncExpectedResultFn } from './types'
 
-const _isErrorExpectation = (value: any): boolean =>
+/**
+ * @function isErrorExpectation
+ * @param {*} value
+ * @type {Boolean}
+ */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const isErrorExpectation = (value: any): boolean =>
   value === Error ||
   Object.prototype.isPrototypeOf.call(Error, value) || // see https://eslint.org/docs/rules/no-prototype-builtins
   value instanceof Error
@@ -35,7 +41,7 @@ export const testCases = (
     const args = case_.slice(0, case_.length - 1)
     const testLabel = _label(args, expectedResult)
 
-    if (_isErrorExpectation(expectedResult)) {
+    if (isErrorExpectation(expectedResult)) {
       // eslint-disable-next-line jest/valid-title
       test(testLabel, () => {
         expect(() => fn(...args)).toThrow(expectedResult)
@@ -60,7 +66,7 @@ export const testCases = (
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const asyncResult = (expectedResult: any): AsyncExpectedResultFn => {
   const resultExpectFn: AsyncExpectedResultFn = (actualResult: any) =>
-    _isErrorExpectation(expectedResult)
+    isErrorExpectation(expectedResult)
       ? expect(actualResult).rejects.toThrow(expectedResult) // eslint-disable-line jest/valid-expect
       : expect(actualResult).resolves.toEqual(expectedResult) // eslint-disable-line jest/valid-expect
 
